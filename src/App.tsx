@@ -6,9 +6,7 @@ import Loader from './components/Loader';
 import { pageData } from './store';
 
 
-
 const App: Component = () => {
-  
   
   return (
     <Show 
