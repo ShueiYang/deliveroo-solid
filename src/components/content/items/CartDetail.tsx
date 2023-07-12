@@ -10,7 +10,7 @@ const CartDetail = () => {
 
   const deliveryFee = 2.5;
 
-  // similar to useEffect to track signal
+  // similar to useEffect to track cart signal, and do sideEffect on totalQty and Sum calculation
   createEffect(() => {
     let sum = 0;
     let totalQty = 0;
