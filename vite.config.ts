@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
 import solidPlugin from 'vite-plugin-solid';
+import eslint from 'vite-plugin-eslint'
 // import devtools from 'solid-devtools/vite';
 
 export default defineConfig({
@@ -10,6 +11,7 @@ export default defineConfig({
     */
     // devtools(),
     solidPlugin(),
+    eslint()
   ],
   server: {
     port: 3000,
