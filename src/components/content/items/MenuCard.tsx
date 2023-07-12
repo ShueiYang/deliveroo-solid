@@ -12,16 +12,16 @@ interface MenuCardProps {
 
 const MenuCard = (props: MenuCardProps) => {
 
-  const categoryFilter = props.items.filter(item => {
-    return item.categoryId === props.categoryId
-  })
+  const categoryFilter = () => {
+    return props.items.filter(item => item.categoryId === props.categoryId)
+  }
 
   return (
     <>
       <h3 class="w-[95%] mt-8 mb-4 mx-auto">{props.name}</h3>
       <div class="max-w-[95%] grid grid-cols-1 xl:grid-cols-2 gap-2 mx-auto">
         
-        <For each={categoryFilter}>
+        <For each={categoryFilter()}>
           {(item) => {
             return(
               <div

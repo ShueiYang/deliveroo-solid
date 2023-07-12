@@ -6,9 +6,9 @@ import { For } from "solid-js";
 
 const HeroSection = (props: RambuteauRawData) => {
 
-  const headerSpan1 = props.datas.header.headerTags.lines[0].spans
-  const headerSpan2 = props.datas.header.headerTags.lines[1].spans
-  const headerInfo = props.datas.header.headerInfoRows
+  const headerSpan1 = () => (props.datas.header.headerTags.lines[0].spans) 
+  const headerSpan2 = () => (props.datas.header.headerTags.lines[1].spans)
+  const headerInfo = () => (props.datas.header.headerInfoRows) 
 
   return (
     <section class="relative flex flex-col md:flex-row gap-6 py-8">
@@ -25,7 +25,7 @@ const HeroSection = (props: RambuteauRawData) => {
           <h1 class="xl:text-[40px]">{props.datas.header.title}</h1>
           <div class="pt-2">
             <span class="pr-1">15 - 25 min</span>
-            <For each={headerSpan1}> 
+            <For each={headerSpan1()}> 
               {(span => {
                 return (
                   <span 
@@ -40,7 +40,7 @@ const HeroSection = (props: RambuteauRawData) => {
           </div>
 
           <div class="flex flex-wrap gap-0.5 items-center pt-2">
-            <For each={headerSpan2}>
+            <For each={headerSpan2()}>
               { (span => {
                 return (
                  <>
@@ -58,7 +58,7 @@ const HeroSection = (props: RambuteauRawData) => {
             </For>   
           </div>
 
-          <For each={headerInfo}>
+          <For each={headerInfo()}>
             {(info => {
               return(
                 <div class="pt-4 flex items-center">

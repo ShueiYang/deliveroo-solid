@@ -7,9 +7,9 @@ import { For } from "solid-js";
 
 const MenuLists = (props: RambuteauRawData) => {
 
-  const categories = props.datas.meta.categories;
-  const items = props.datas.items;
-  const heroImage = props.datas.meta.metatags.image;
+  const categories = () => (props.datas.meta.categories) 
+  const items = () => (props.datas.items)
+  const heroImage = () => (props.datas.meta.metatags.image)
 
 
   return (
@@ -27,19 +27,19 @@ const MenuLists = (props: RambuteauRawData) => {
         </div>
         <img 
           class="aspect-square rounded-full max-w-[50px] max-h-[50px] mx-6"
-          src={heroImage}
+          src={heroImage()}
           alt="Subway"     
         />
       </div>
       
-      <For each={categories}>
+      <For each={categories()}>
         {(menuSection) => {
           return (
             <div class="hover:cursor-pointer">
               <MenuCard 
                 categoryId={menuSection.id}
                 name={menuSection.name} 
-                items={items}
+                items={items()}
               />
             </div>    
         )}}
