@@ -1,13 +1,68 @@
-import { For } from "solid-js";
+import { For, Show, createEffect, createSignal, onCleanup, onMount } from "solid-js";
 import { LayoutNavigation } from "../../../data.types";
+import { howManyItemsInMenuArray } from "../../utils/utility";
 
+
+
+let navigationOuterRef: HTMLDivElement
+let navigationRef: HTMLUListElement
+let moreMenuRef: HTMLDivElement
 
 const MenuNavbar = (props: {layoutDatas: LayoutNavigation[]}) => {
+  
+  
+  const [priorityItems, setPriorityItems] = createSignal<LayoutNavigation[]>(props.layoutDatas);
+  const [moreItems, setMoreItems] = createSignal<LayoutNavigation[]>([]);
+  const [navWidthArray, setNavWidthArray] = createSignal<number[]>([]);
+  const [open, setOpen] = createSignal(false);
+  
+
+  onMount(()=> {
+    const widthArray = Array.from(navigationRef.children).map(item => item.getBoundingClientRect().width);
+    setNavWidthArray(widthArray);   
+  })
+  
+  const updateNavigation = () => {
+    const outerWidth = navigationOuterRef.getBoundingClientRect().width * 85 / 100;
+    const moreMenuWidth = moreMenuRef ? moreMenuRef.getBoundingClientRect().width : 80;
+    const arrayAmount = howManyItemsInMenuArray(navWidthArray(), outerWidth, moreMenuWidth, 1);
+    const navItemCopy = props.layoutDatas;
+    const menuArray = arrayAmount === 0 ? 1 : arrayAmount;
+    const priorityItems = navItemCopy.slice(0, menuArray);
+ 
+    setPriorityItems(priorityItems);
+    setMoreItems(priorityItems.length !== navItemCopy.length ? 
+      navItemCopy.slice(menuArray, navItemCopy.length) : []
+    );
+  }
+
+  createEffect(()=> {
+    let resizeTimer: ReturnType<typeof setTimeout> | null
+    // use throttled behaviour
+    function updateNavigationThrottled() {
+      if(!resizeTimer) {
+        resizeTimer = setTimeout(()=> {
+          updateNavigation();     
+          resizeTimer = null;
+        }, 100);
+      }
+    }
+    window.addEventListener("resize", updateNavigationThrottled);
+    updateNavigation();
+    onCleanup (() => {
+      if(resizeTimer) {
+        clearTimeout(resizeTimer);
+      }  
+      window.removeEventListener("resize", updateNavigationThrottled);
+    });
+  })
+
+
 
   return (
-    <div class="menuNav h-[72px] flex items-center justify-around bg-orange-50 px-4">
-      <ul class="flex gap-8 max-w-[85%] max-h-[72px] flex-wrap overflow-y-hidden">
-        <For each={props.layoutDatas}>
+    <div ref={navigationOuterRef} class="menuNav h-[72px] flex items-center justify-around bg-orange-50 px-4">
+      <ul ref={navigationRef} class="flex gap-8 max-w-[85%] max-h-[72px] flex-wrap overflow-y-hidden">
+        <For each={priorityItems()}>
           {(labelName) => (
             <li class="flex items-center h-[72px] whitespace-nowrap text-sm text-[#00b8a9] cursor-pointer">
               {labelName.label}
@@ -15,10 +70,28 @@ const MenuNavbar = (props: {layoutDatas: LayoutNavigation[]}) => {
           )}
         </For>
       </ul>
-      <button class="flex items-center gap-2">
-        <span>Plus</span>
-        <i class="icon-chevron-down"></i>
-      </button>
+      <Show when={moreItems().length > 0} >
+        <div ref={moreMenuRef} class="relative w-20">
+          <button
+            class="flex justify-center items-center gap-2 w-full"
+            onClick={()=> {setOpen(!open())}}
+          >
+            <span>Plus</span>
+            <i class="icon-chevron-down"></i>
+          </button>
+          { open() && 
+            <ul class="absolute top-10 -right-12 bg-orange-50">
+              <For each={moreItems()}>
+                {(labelName) => (
+                  <li class="whitespace-nowrap flex items-center h-12 p-2 cursor-pointer hover:bg-orange-100">
+                    {labelName.label}
+                  </li>  
+                )}
+              </For>
+            </ul>
+          }       
+        </div>
+      </Show>
     </div>
   )
 }

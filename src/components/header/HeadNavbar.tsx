@@ -10,13 +10,14 @@ const HeadNavbar = () => {
       <div class="relative max-w-[500px] grow hidden lg:block ml-2">
         <input 
           type="text"
+          name="search"
           class="w-full px-7 py-1.5 outline-none focus:ring-2 focus:ring-zinc-500 rounded-sm"
           placeholder="Chercher Subway - Rambuteau"    
         />
         <i class="absolute icon-search left-0.5 inset-y-2 text-slate-400"></i>
       </div>
 
-      <a href="https://github.com/ShueiYang/deliveroo-next"
+      <a href="https://github.com/ShueiYang/deliveroo-solid"
         class="hidden md:flex items-center mx-2 border-none"
         rel="noopener noreferrer"
         target="_blank"
