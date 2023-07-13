@@ -31,14 +31,14 @@ const HeadNavbar = () => {
       </a>
 
       <div class="flex gap-2">
-        <a class="hidden sm:flex items-center" href="test/" >
+        <button class="hidden sm:flex items-center">
             <i class="icon-cart mr-2"></i> 
             <span>0,00 €</span> 
-        </a>
-        <a class="hidden sm:flex items-center"  href="test/" >
+        </button>
+        <button class="hidden sm:flex items-center">
             <i class="icon-user mr-2"></i> 
             <span>Inscription ou connexion</span> 
-        </a>
+        </button>
 
         <button class="flex items-center border-[1px] border-[#e5e7eb]">
           <i class="icon-menu-bars mr-2"></i>
