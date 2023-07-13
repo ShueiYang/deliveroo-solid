@@ -3,24 +3,21 @@ import { LayoutNavigation } from "../../../data.types";
 import { howManyItemsInMenuArray } from "../../utils/utility";
 
 
-
-let navigationOuterRef: HTMLDivElement
-let navigationRef: HTMLUListElement
+let navigationOuterRef: HTMLDivElement 
+let navigationRef: HTMLUListElement 
 let moreMenuRef: HTMLDivElement
+
 
 const MenuNavbar = (props: {layoutDatas: LayoutNavigation[]}) => {
   
+  let resizeTimer: ReturnType<typeof setTimeout> | null
   
+  // eslint-disable-next-line
   const [priorityItems, setPriorityItems] = createSignal<LayoutNavigation[]>(props.layoutDatas);
   const [moreItems, setMoreItems] = createSignal<LayoutNavigation[]>([]);
   const [navWidthArray, setNavWidthArray] = createSignal<number[]>([]);
   const [open, setOpen] = createSignal(false);
-  
 
-  onMount(()=> {
-    const widthArray = Array.from(navigationRef.children).map(item => item.getBoundingClientRect().width);
-    setNavWidthArray(widthArray);   
-  })
   
   const updateNavigation = () => {
     const outerWidth = navigationOuterRef.getBoundingClientRect().width * 85 / 100;
@@ -28,43 +25,48 @@ const MenuNavbar = (props: {layoutDatas: LayoutNavigation[]}) => {
     const arrayAmount = howManyItemsInMenuArray(navWidthArray(), outerWidth, moreMenuWidth, 1);
     const navItemCopy = props.layoutDatas;
     const menuArray = arrayAmount === 0 ? 1 : arrayAmount;
-    const priorityItems = navItemCopy.slice(0, menuArray);
- 
+    const priorityItems = navItemCopy.slice(0, menuArray); 
+    // set up the navbar and the dropdown menu array
     setPriorityItems(priorityItems);
     setMoreItems(priorityItems.length !== navItemCopy.length ? 
       navItemCopy.slice(menuArray, navItemCopy.length) : []
     );
   }
-
-  createEffect(()=> {
-    let resizeTimer: ReturnType<typeof setTimeout> | null
-    // use throttled behaviour
-    function updateNavigationThrottled() {
-      if(!resizeTimer) {
-        resizeTimer = setTimeout(()=> {
-          updateNavigation();     
-          resizeTimer = null;
-        }, 100);
-      }
+  
+  // use throttled behaviour
+  function updateNavigationThrottled() {
+    if (!resizeTimer) {
+      resizeTimer = setTimeout(() => {
+        updateNavigation();
+        resizeTimer = null;
+      }, 100);
     }
-    window.addEventListener("resize", updateNavigationThrottled);
-    updateNavigation();
-    onCleanup (() => {
-      if(resizeTimer) {
-        clearTimeout(resizeTimer);
-      }  
-      window.removeEventListener("resize", updateNavigationThrottled);
-    });
-  })
+  }
 
+  onMount(()=> {
+    const widthArray = Array.from(navigationRef.children).map(item => item.getBoundingClientRect().width);
+    setNavWidthArray(widthArray);   
+    window.addEventListener("resize", updateNavigationThrottled);
+  })
+  
+  createEffect(()=> {
+    updateNavigation();
+  })
+  
+  onCleanup (() => {
+    if(resizeTimer) {
+      clearTimeout(resizeTimer);
+    }  
+    window.removeEventListener("resize", updateNavigationThrottled);
+  });
 
 
   return (
     <div ref={navigationOuterRef} class="menuNav h-[72px] flex items-center justify-around bg-orange-50 px-4">
-      <ul ref={navigationRef} class="flex gap-8 max-w-[85%] max-h-[72px] flex-wrap overflow-y-hidden">
+      <ul ref={navigationRef} class="flex gap-10 max-w-[85%] max-h-[72px] flex-wrap overflow-y-hidden">
         <For each={priorityItems()}>
           {(labelName) => (
-            <li class="flex items-center h-[72px] whitespace-nowrap text-sm text-[#00b8a9] cursor-pointer">
+            <li class="flex items-center justify-center h-[72px] whitespace-nowrap text-sm text-[#00b8a9] cursor-pointer">
               {labelName.label}
             </li>
           )}
@@ -80,10 +82,10 @@ const MenuNavbar = (props: {layoutDatas: LayoutNavigation[]}) => {
             <i class="icon-chevron-down"></i>
           </button>
           { open() && 
-            <ul class="absolute top-10 -right-12 bg-orange-50">
+            <ul class="absolute top-10 right-0 bg-orange-50">
               <For each={moreItems()}>
                 {(labelName) => (
-                  <li class="whitespace-nowrap flex items-center h-12 p-2 cursor-pointer hover:bg-orange-100">
+                  <li class="whitespace-nowrap flex items-center h-12 py-2 px-4 border-b-2 cursor-pointer hover:bg-orange-100">
                     {labelName.label}
                   </li>  
                 )}
