@@ -31,5 +31,7 @@ module.exports = {
         "solid"
     ],
     "rules": {
+        '@typescript-eslint/no-non-null-assertion': 'off',
+        "solid/self-closing-comp": "off"
     }
 }
