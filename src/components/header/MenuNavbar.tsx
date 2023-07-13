@@ -62,12 +62,14 @@ const MenuNavbar = (props: {layoutDatas: LayoutNavigation[]}) => {
 
 
   return (
-    <div ref={navigationOuterRef} class="menuNav h-[72px] flex items-center justify-around bg-orange-50 px-4">
-      <ul ref={navigationRef} class="flex gap-10 max-w-[85%] max-h-[72px] flex-wrap overflow-y-hidden">
+    <div ref={navigationOuterRef} class="menuNav h-[72px] flex items-center justify-between bg-orange-50 px-8">
+      <ul ref={navigationRef} class="flex gap-6 max-w-[85%] max-h-[72px]">
         <For each={priorityItems()}>
-          {(labelName) => (
-            <li class="flex items-center justify-center h-[72px] whitespace-nowrap text-sm text-[#00b8a9] cursor-pointer">
-              {labelName.label}
+          {(labelName, index) => (
+            <li class="flex items-center justify-center min-w-[160px] h-8 whitespace-nowrap text-sm text-[#00b8a9] cursor-pointer">
+              <span class={`py-1 px-4 ${index() === 0 ? "bg-[#17ccbd] text-[#fff] font-bold rounded-2xl" : ""}`}>
+                {labelName.label}
+              </span>
             </li>
           )}
         </For>
@@ -85,7 +87,7 @@ const MenuNavbar = (props: {layoutDatas: LayoutNavigation[]}) => {
             <ul class="absolute top-10 right-0 bg-orange-50">
               <For each={moreItems()}>
                 {(labelName) => (
-                  <li class="whitespace-nowrap flex items-center h-12 py-2 px-4 border-b-2 cursor-pointer hover:bg-orange-100">
+                  <li class="whitespace-nowrap flex items-center w-60 h-12 py-2 px-4 border-b-2 cursor-pointer hover:bg-orange-100">
                     {labelName.label}
                   </li>  
                 )}
