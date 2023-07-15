@@ -44,7 +44,7 @@ const HeroSection = (props: RambuteauRawData) => {
               { (span => {
                 return (
                  <>
-                    { span.icon && <i class={`icon-${span.icon.name}`}></i> }                  
+                    { span.icon && <i class={`icon-${span.icon.name}`}/> }                  
                   <div 
                     class="font-medium whitespace-nowrap"
                     style={{color: `${span.color?.hex}`}}
@@ -62,10 +62,10 @@ const HeroSection = (props: RambuteauRawData) => {
             {(info => {
               return(
                 <div class="pt-4 flex items-center">
-                  <i class={`icon-${info.image.name} text-2xl`} 
-                    style={{color: `${info.image.color.hex}`}}>
-                  </i>
-                 
+                  <i 
+                    class={`icon-${info.image.name} text-2xl`} 
+                    style={{color: `${info.image.color.hex}`}} 
+                  />          
                   <div class="flex flex-col mx-4">
                     <For each={info.lines}>
                       {(line => (
@@ -77,7 +77,7 @@ const HeroSection = (props: RambuteauRawData) => {
                       ))}        
                     </For>
                   </div>
-                  <i class="icon-chevron-right"></i>     
+                  <i class="icon-chevron-right" />   
                 </div>
               )
             })}

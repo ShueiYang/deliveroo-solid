@@ -41,12 +41,12 @@ const CartDetail = () => {
                 <div class="flex items-center whitespace-nowrap">
                   {/* decremente quantity */}
                   <button onClick={()=> {removeCart(item)}}>
-                    <i class="icon-minus text-2xl"></i>
+                    <i class="icon-minus text-2xl"/>
                   </button>
                   <span>{item.quantity}</span>
                   {/* add quantity */}
                   <button onClick={()=>{addCart(item)}}>
-                    <i class="icon-plus text-2xl"></i>
+                    <i class="icon-plus text-2xl"/>
                   </button>    
                 </div>
                 <div class="cart-name">
@@ -62,7 +62,7 @@ const CartDetail = () => {
                   </div>  
                     {/* delete items in one click */}
                   <button onClick={()=> {deleteCart(item)}}>
-                    <i class="icon-cross text-2xl"></i>
+                    <i class="icon-cross text-2xl"/>
                   </button>
                 </div>
               </div>

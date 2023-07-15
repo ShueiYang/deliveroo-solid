@@ -81,7 +81,7 @@ const MenuNavbar = (props: {layoutDatas: LayoutNavigation[]}) => {
             onClick={()=> {setOpen(!open())}}
           >
             <span>{`${open() ? "Moins" : "Plus"}`}</span>
-            <i class={`icon-chevron-down ${open() ? "rotate-180" : ""}`}></i>
+            <i class={`icon-chevron-down ${open() ? "rotate-180" : ""}`} />
           </button>
           { open() && 
             <ul class="absolute top-10 right-0 bg-orange-50">
