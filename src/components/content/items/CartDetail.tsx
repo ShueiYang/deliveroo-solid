@@ -5,10 +5,10 @@ import { convertToNumber } from "../../../utils/utility";
 export const [ totalSum, setTotalSum ] = createSignal(0)
 export const [ itemTotal, setItemTotal ] = createSignal(0)
 
+export const deliveryFee = 2.5;
+
 
 const CartDetail = () => {
-
-  const deliveryFee = 2.5;
 
   // similar to useEffect to track cart signal, and do sideEffect on totalQty and Sum calculation
   createEffect(() => {

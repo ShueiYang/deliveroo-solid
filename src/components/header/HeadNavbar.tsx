@@ -1,3 +1,5 @@
+import { cart } from "../../store";
+import { deliveryFee, totalSum } from "../content/items/CartDetail";
 import Logo from "./headItems/Logo";
 
 
@@ -33,7 +35,9 @@ const HeadNavbar = () => {
       <div class="flex gap-2">
         <button class="hidden sm:flex items-center">
             <i class="icon-cart mr-2" />
-            <span>0,00 €</span> 
+            <span>
+              {`${cart.length === 0 ? "0.00" : (totalSum() + deliveryFee).toFixed(2)} €`} 
+            </span> 
         </button>
         <button class="hidden sm:flex items-center">
             <i class="icon-user mr-2" />
