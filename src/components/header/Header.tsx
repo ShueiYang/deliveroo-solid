@@ -1,3 +1,4 @@
+import { Component } from "solid-js";
 import { DeliverooData } from "../../../data.types";
 import HeadNavbar from "./HeadNavbar"
 import HeroSection from "./HeroSection"
@@ -6,7 +7,7 @@ export interface RambuteauRawData {
   datas: DeliverooData
 }
 
-const Header = (props: RambuteauRawData) => {
+const Header: Component<RambuteauRawData> = (props) => {
   
     
   return (

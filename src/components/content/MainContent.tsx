@@ -1,3 +1,4 @@
+import { Component } from "solid-js";
 import MenuLists from "./MenuLists";
 import Cart from "./Cart";
 import MenuNavbar from "../header/MenuNavbar";
@@ -12,7 +13,7 @@ export interface cartProps {
 }
 
 
-const MainContent = (props: RambuteauRawData) => {
+const MainContent: Component<RambuteauRawData> = (props) => {
 
   // use decorator /* @once */ to tell the SolidJS compiler to explicitly not to make this a reactive expression
   // evaluated once and only once when the DOM nodes are created from the JSX. So we can remove the warning...
