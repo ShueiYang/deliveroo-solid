@@ -53,7 +53,7 @@ const MenuNavbar = (props: {layoutDatas: LayoutNavigation[]}) => {
     updateNavigation();
   })
   
-  onCleanup (() => {
+  onCleanup(()=> {
     if(resizeTimer) {
       clearTimeout(resizeTimer);
     }  
@@ -62,8 +62,14 @@ const MenuNavbar = (props: {layoutDatas: LayoutNavigation[]}) => {
 
 
   return (
-    <div ref={navigationOuterRef} class="menuNav h-[72px] flex items-center justify-between bg-orange-50 px-8">
-      <ul ref={navigationRef} class="flex gap-6 max-w-[85%] max-h-[72px]">
+    <div 
+      ref={navigationOuterRef} 
+      class="menuNav h-[72px] flex items-center justify-between bg-orange-50 px-8"
+    >
+      <ul 
+        ref={navigationRef} 
+        class="flex gap-6 max-w-[85%] max-h-[72px]"
+      >
         <For each={priorityItems()}>
           {(labelName, index) => (
             <li class="flex items-center justify-center min-w-[160px] h-8 whitespace-nowrap text-sm text-[#00b8a9] cursor-pointer">

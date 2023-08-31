@@ -1,10 +1,10 @@
-import { type Component, Switch, Match } from 'solid-js';
+import { type Component, Switch, Match } from "solid-js";
+import { pageData } from "./store";
 import MainContent from "./components/content/MainContent";
 import Footer from "./components/footer/Footer";
 import Header from "./components/header/Header";
-import Loader from './components/Loader';
-import { pageData } from './store';
-import Error from './components/Error';
+import Loader from "./components/Loader";
+import Error from "./components/Error";
 
 
 const App: Component = () => {
